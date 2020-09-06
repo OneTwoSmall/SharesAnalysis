@@ -8,8 +8,6 @@ import tushare as ts
 
 from matplotlib.pylab import date2num
 
-# 使用ggplot样式，好看些
-mpl.style.use("ggplot")
 # 获取上证指数数据
 ts.set_token('a7e93a26377bddf7184aa2312505579ee5b403f7b0f2e14286e465cf')
 pro = ts.pro_api()
@@ -21,7 +19,7 @@ for ts_code in data["ts_code"]:
         continue
     time.sleep(0.13)
     try:
-        df = ts.pro_bar(ts_code=ts_code, adj='qfq', start_date='20190715', end_date='20200901', ma=[5, 10, 250])
+        df = ts.pro_bar(ts_code=ts_code, adj='qfq', start_date='20190716', end_date='20200902', ma=[5, 10, 250])
         if len(df["open"]) < 250:
             continue
         last10Data = df[0:15]
