@@ -17,9 +17,9 @@ for ts_code in data["ts_code"]:
     # ts_code='300395.SZ'
     if ts_code[0:3]!="300":
         continue
-    time.sleep(0.13)
+    # time.sleep(0.13)
     try:
-        df = ts.pro_bar(ts_code=ts_code, adj='qfq', start_date='20190716', end_date='20200902', ma=[5, 10, 250])
+        df = ts.pro_bar(ts_code=ts_code, adj='qfq', start_date='201901025', end_date='20201025', ma=[5, 10, 250])
         if len(df["open"]) < 250:
             continue
         last10Data = df[0:15]
@@ -31,18 +31,18 @@ for ts_code in data["ts_code"]:
             ma5 = last10Data["ma5"][x]
             d5value = closevalue - ma5
             d250value = closevalue - ma250
-            percent5 = abs(d5value / closevalue)
+            percent5 = abs(d5value / closevalue) 
             percent250 = abs(d250value / closevalue)
             if pd.isnull(d250value):
                 print("ma250:" + str(d250value) + ":" + ts_code)
             if x == 0:
-                if d250value > 0 or percent250 > 0.03:
+                if d250value > 0 or percent250 > 0.05:
                     findflag.append(1)
                     break
-            else:
-                if d250value > 0 or percent250 > 0.10 or percent5 > 0.05:
-                    findflag.append(1)
-                    break
+            # else:
+            #     if d250value > 0 or percent250 > 0.10 or percent5 > 0.05:
+            #         findflag.append(1)
+            #         break
 
         if sum(findflag) == 1:
             print("find one share:" + ts_code)
